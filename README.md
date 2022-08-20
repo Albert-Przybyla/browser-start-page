@@ -1,6 +1,6 @@
 # browser start page 
 
-This template should help get you started developing with Vue 3 in Vite.
+this application is the start page of the browser, with messenger, twitter and the latest news.
 
 ## Recommended IDE Setup
 
