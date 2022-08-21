@@ -1,11 +1,12 @@
 <script setup>
-import VueWriter from 'vue-writer'
+import axios from 'axios';
+import VueWriter from 'vue-writer';
 </script>
 
 
 <template>
     <div class="wrapper">
-         <VueWriter :array="['Hello World']" />
+         <VueWriter :array="greetings" :eraseSpeed="50" :typeSpeed="80" :delay="1500"/>
     </div>
 </template>
 
@@ -17,9 +18,23 @@ import VueWriter from 'vue-writer'
     },
     data(){
         return {
-                
+            greetings: ["hello"],
         }
     },
+    methods: {
+        show(){
+          axios.get(`https://www.greetingsapi.com/greetings`)
+              .then((response) => {
+                    this.greetings = response.data.greetings
+              })
+              .catch((error) => {
+                  console.log(error)
+              })      
+        },
+    },
+    beforeMount(){
+        this.show()
+    }
 
 }
 </script>
