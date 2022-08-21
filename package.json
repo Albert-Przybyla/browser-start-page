@@ -10,6 +10,7 @@
     "axios": "^0.27.2",
     "debounce": "^1.2.1",
     "vue": "^3.2.37",
+    "vue-cookies": "^1.8.1",
     "vue-writer": "^1.2.0"
   },
   "devDependencies": {
