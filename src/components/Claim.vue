@@ -43,13 +43,15 @@ import VueWriter from 'vue-writer';
 
 <style scoped>
     .wrapper{
-        width: 80%;
+        /* width: 80%;
         height: 15vh;
-        background: var(--color-background);
+        background: var(--color-background); */
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 40px;
+        font-weight: bold;
+        color: var(--color-heading);
     }
 
 </style>

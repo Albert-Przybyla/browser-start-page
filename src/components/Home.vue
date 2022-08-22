@@ -1,12 +1,14 @@
 <script setup>
     import claim from "@/components/Claim.vue"
     import search from "@/components/Search.vue"
+    import Shortcuts from "@/components/Shortcuts.vue"
 </script>
 
 <template>
     <header :style="style">
         <claim/>
         <search/>
+        <Shortcuts/>
     </header>
 </template>
 
@@ -15,7 +17,8 @@ export default {
   name: "Home",
   components: {
     claim,
-    search
+    search,
+    Shortcuts
     },
     props: ['bg'],
 
@@ -35,7 +38,7 @@ export default {
 <style scoped>
     header{
         height: 85vh;
-        width: 100%;
+        width: 100vw;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50%;
@@ -43,5 +46,6 @@ export default {
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        text-shadow: 2px 2px var(--color-background);
     }
 </style>
