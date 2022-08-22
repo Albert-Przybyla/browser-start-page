@@ -12,7 +12,7 @@ import VueWriter from 'vue-writer';
 
 <script>
     export default {
-    name: "Clime",
+    name: "Claime",
     components: {
         VueWriter
     },
@@ -42,6 +42,14 @@ import VueWriter from 'vue-writer';
 
 
 <style scoped>
-
+    .wrapper{
+        width: 80%;
+        height: 15vh;
+        background: var(--color-background);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+    }
 
 </style>

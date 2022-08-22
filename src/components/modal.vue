@@ -35,7 +35,7 @@
             this.$emit('close');
         },
         choseFoto(number){
-            console.log(number)
+            this.$emit('update:option',number);
         }
     },
     beforeMount(){
@@ -79,7 +79,8 @@
 
     .fotobox img{
         margin-top: 5vh;
-        max-width: 80%;
+        width: 80%;
+        height: 20vh;
         border-radius: 15px;
     }
 
@@ -151,7 +152,8 @@
 
     .fotobox img{
         margin: 0;
-        max-width: 15%;
+        width: 15%;
+        height: 10vh;
     }
 
 }

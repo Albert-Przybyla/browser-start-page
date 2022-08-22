@@ -5,8 +5,8 @@
 </script>
 
 <template>
-  <modal v-if="modalOpen" @close = "modalOpen = false"/>
-  <Home/>
+  <modal v-if="modalOpen" @close = "modalOpen = false" @update:option="optionUpdate"/>
+  <Home :bg = "bg"/>
 </template>
 
 <script>
@@ -14,11 +14,14 @@
     name: "App",
     data(){
       return {
-        modalOpen: true
+        modalOpen: true,
+        bg: 1,
       }
     },
     methods: {
-
+      optionUpdate: function(value){
+        this.bg = value
+      }
     }
   }
 
