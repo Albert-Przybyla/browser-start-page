@@ -6,7 +6,7 @@
 
 <template>
   <modal v-if="modalOpen" @close = "modalOpen = false" @update:option="optionUpdate"/>
-  <Home :bg = "bg"/>
+  <Home :bg = "bg" @openModal = "modalOpen = true"/>
 </template>
 
 <script>
