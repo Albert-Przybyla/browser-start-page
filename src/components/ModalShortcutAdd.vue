@@ -28,7 +28,7 @@
                             title
                         </span>
                     </label>
-                    <input type="text" name="" id="">
+                    <input type="text" name="" id="" placeholder="np. Google">
                 </div>
                 <div class="input">
                     <label>
@@ -36,7 +36,7 @@
                             link
                         </span>
                     </label>
-                    <input type="text" name="" id="">
+                    <input type="text" name="" id="" placeholder="https://">
                 </div>
 
                 </div>

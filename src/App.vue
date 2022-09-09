@@ -1,12 +1,13 @@
 <script setup>
     import Home from "./components/Home.vue";
-    import VueCookies from 'vue-cookies';
-    import modal from "./components/modal.vue"
+    import modal from "./components/modal.vue";
+    import widgets from "./components/widgets.vue";
 </script>
 
 <template>
   <modal v-if="modalOpen" @close = "modalOpen = false" @update:option="optionUpdate"/>
   <Home :bg = "bg" @openModal = "modalOpen = true"/>
+  <widgets/>
 </template>
 
 <script>
@@ -17,6 +18,11 @@
         modalOpen: true,
         bg: 1,
       }
+    },
+    components: {
+        Home, 
+        modal, 
+        widgets,
     },
     methods: {
       optionUpdate: function(value){

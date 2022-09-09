@@ -27,7 +27,8 @@
     data(){
         return{
             j: ".jpg",
-            p: "../assets/"
+            p: "../assets/",
+            active: 1
         }
     },
     methods: {
@@ -35,7 +36,9 @@
             this.$emit('close');
         },
         choseFoto(number){
-            this.$emit('update:option',number);
+            this.$emit('update:option', number);
+            this.active = number
+            console.log(this.active)
         }
     },
     beforeMount(){
@@ -119,6 +122,10 @@
 
     .close::after{
         transform: rotate(-45deg);
+    }
+
+    .border{
+        border: blue 3px solid
     }
 
 
