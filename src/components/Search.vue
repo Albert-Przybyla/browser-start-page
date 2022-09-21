@@ -27,8 +27,24 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        width: 90%;
         height: 20vh;
+    }
+
+    .weatherBox .search{
+        width: 100%;
+        height: 15vh;
+    }
+
+    .weatherBox .search input{
+        width: 250px;
+        height: 40px;
+        font-size: 25px;
+    }
+
+    .weatherBox .search span{
+        width: 40px;
+        height: 40px;
     }
 
     input{

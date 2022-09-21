@@ -48,7 +48,6 @@ export default {
 <style scoped>
     header{
         height: 85vh;
-        width: 100vw;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50%;
@@ -57,6 +56,7 @@ export default {
         justify-content: space-around;
         align-items: center;
         text-shadow: 2px 2px var(--color-background);
+        overflow: hidden;
     }
 
     .setting{
