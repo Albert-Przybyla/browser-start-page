@@ -1,15 +1,17 @@
 <script setup>
     import axios from 'axios';
+    import newsItem from '@/components/newsItem.vue'
 </script>
+
+<!-- v-show="active==index" -->
 
 <template>
     <div class="newsBox">
-        <div class="item" v-for="item in items" :key="item">
-            {{item.title}}
-        </div>
+        <newsItem class="item" v-for="(item, index) in items" :key="item" :item = "item" :active = "active" :index = "index"/>
         <span class="material-symbols-outlined" id="back" @click="changeNews(-1)">
             arrow_back_ios
         </span>
+        <span class="curentSlide"><sup>{{active+1}}</sup>/<sub>20</sub></span>
         <span class="material-symbols-outlined" id="forward" @click="changeNews(1)">
             arrow_forward_ios
         </span>
@@ -20,7 +22,7 @@
 export default {
     name: "news",
     components: {
-
+        newsItem
     },
     data() {
         return {
@@ -41,15 +43,15 @@ export default {
                 })
         },
         changeNews(add){
-            if(add == -1 && this.active >= 1 || add == 1 && this.active <= 19){
+            if(add == -1 && this.active >= 1 || add == 1 && this.active <= 18){
             this.active += add
+
             }
         }
     },
     beforeMount(){
         this.loadNews()
-    }
-
+    },
 
     }
 </script>
@@ -66,7 +68,6 @@ export default {
         background-repeat: no-repeat; */
         background-position: 50%;
         transition: .4s;
-        display: flex;
         color: black;
         overflow: hidden;
     }
@@ -74,38 +75,41 @@ export default {
     .item{
         width: 100%;
         height: 100%;
-        display: flex;
+        display: inline-block;
     }
 
     #back{
         position: absolute;
         left: 0;
         bottom: 0;
-        width: 50%;
-        height: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 30px;
-        background-color: rgba(0, 0, 0, 0.5);
+        width: 40%;
         cursor: pointer;
         border-bottom-left-radius: 20px;
-        z-index: 2;
+    }
+
+    .curentSlide{
+        width: 20%;
+        position: absolute;
+        left: 40%;
+        bottom: 0;
     }
 
     #forward{
         position: absolute;
         right: 0;
         bottom: 0;
-        width: 50%;
+        width: 40%;
+        cursor: pointer;
+        border-bottom-right-radius: 20px;
+    }
+
+    span{
         height: 10%;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 30px;
         background-color: rgba(0, 0, 0, 0.5);
-        cursor: pointer;
-        border-bottom-right-radius: 20px;
         z-index: 2;
     }
 
