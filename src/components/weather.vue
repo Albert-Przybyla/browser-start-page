@@ -59,7 +59,6 @@ export default {
             axios.get(`${this.api_geo_url}${this.query}&limit=5&appid=${this.api_key}`)
                 .then((response) => {
                     this.locations = response.data
-                    console.log(response.data)
                     this.showResults = true
                 })
                 .catch((error) => {
@@ -72,10 +71,8 @@ export default {
 
         showWeather(lat, lon){
             this.showResults = false
-            console.log(lat)
             axios.get(`${this.api_url}lat=${lat}&lon=${lon}&units=metric&appid=${this.api_key}`)
                 .then((response) => {
-                    console.log(response)
                     this.weather = response
                     this.showWeatherInfo = true
                 })

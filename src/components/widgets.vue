@@ -1,10 +1,14 @@
 <script setup>
     import weather from "@/components/weather.vue"
+    import news from "@/components/news.vue"
+    import toDo from "@/components/toDo.vue"
 </script>
 
 <template>
     <div class="wrapper">
         <weather/>
+        <news/>
+        <toDo/>
     </div>
 </template>
 
@@ -12,7 +16,9 @@
     export default {
     name: "widgets",
     components: {
-    weather
+    weather,
+    news,
+    toDo
     },
     data() {
         return {
