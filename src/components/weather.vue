@@ -1,10 +1,22 @@
 <script setup>
-    import search from "@/components/Search.vue"
+    import debounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/debounce.min.mjs';
+    import axios from 'axios';
 </script>
 
 <template>
     <div class="weatherBox">
-        <search/>
+        <div class="search">
+            <input type="text" 
+            name="" 
+            id=""
+            placeholder="search location ..."
+            v-model="query"
+            @input="handleInput"
+            >
+            <div class="showResults" v-if="showResults" >
+                <div class="list" v-for="location in locations" :key="location.lat">{{location.country}}, {{location.name}}</div>
+            </div>
+        </div>
         <div class="locationBox">
             <div class="location">Poznan, PL</div>
             <div class="date">21 wrzesnia 2022</div>
@@ -26,14 +38,36 @@
 export default {
     name: "weather",
     components: {
-    search
+
     },
     data() {
         return {
-            api_key: 'ccab95902b2f19062b1ea7d4d2ca6c56',
-            api_url: 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid='
+            api_key: '0a3bb1ff2db0e040a9982a1d81f55253',
+            api_geo_url: 'http://api.openweathermap.org/geo/1.0/direct?q=',
+            weather: {},
+            locations: [],
+            query: '',
+            showResults: false,
         }
+    },
+    methods: {
+        handleInput: debounce(function() {
+            if(this.query.length>0){
+            axios.get(`${this.api_geo_url}${this.query}&limit=5&appid=${this.api_key}`)
+                .then((response) => {
+                    this.locations - response.data
+                    console.log(response.data)
+                    this.showResults = true
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }else{
+                this.showResults = false
+            }
+        }, 1000)
     }
+
 
     }
 </script>
@@ -50,6 +84,37 @@ export default {
         transition: .4s;
         display: flex;
         flex-direction: column;
+    }
+
+    .search{
+        width: 100%;
+        height: 15vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input{
+        width: 250px;
+        height: 40px;
+        font-size: 20px;
+        background-color: #181818;
+        color: rgba(235, 235, 235, 0.64);
+        text-align: center;
+        border-radius: 15px;
+        border: none;
+    }
+
+    input:focus{
+        outline: none;
+    }
+
+    .showResults {
+        color: rgba(235, 235, 235, 0.64);
+        background-color: #181818;
+        position: absolute;
+        bottom: 0;
+        left: 50;
     }
 
     .locationBox{

@@ -26,10 +26,7 @@ import VueWriter from 'vue-writer';
           axios.get(`https://www.greetingsapi.com/greetings`)
               .then((response) => {
                     this.greetings = response.data.greetings
-              })
-              .catch((error) => {
-                  console.log(error)
-              })      
+              }) 
         },
     },
     beforeMount(){

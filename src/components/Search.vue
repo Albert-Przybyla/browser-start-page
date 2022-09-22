@@ -1,3 +1,7 @@
+<script setup>
+    import debounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/debounce.min.mjs';
+</script>
+
 <template>
 <div class="search">
     <label>
@@ -5,7 +9,12 @@
             search
         </span>
     </label>
-    <input type="text" id="">
+    <input 
+    type="text"
+    id=""
+    v-model = "query"
+    @input = "handleInput"
+    >
 </div>
 </template>
 
@@ -14,9 +23,17 @@ export default {
   name: "Search",
   data(){
     return {
-
+        query: '',
     }
   },
+  methods:{
+    // handleInput: debounce(function() {
+    //         console.log(this.query)
+    //     }, 1000)
+    handleInput (){
+        console.log(this.query)
+    }
+  }
 
 };
 </script>
@@ -29,22 +46,6 @@ export default {
         align-items: center;
         width: 90%;
         height: 20vh;
-    }
-
-    .weatherBox .search{
-        width: 100%;
-        height: 15vh;
-    }
-
-    .weatherBox .search input{
-        width: 250px;
-        height: 40px;
-        font-size: 25px;
-    }
-
-    .weatherBox .search span{
-        width: 40px;
-        height: 40px;
     }
 
     input{
