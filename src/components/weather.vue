@@ -13,21 +13,21 @@
             v-model="query"
             @input="handleInput"
             >
-            <div class="showResults" v-if="showResults" >
-                <div class="list" v-for="location in locations" :key="location.lat">{{location.country}}, {{location.name}}</div>
-            </div>
         </div>
-        <div class="locationBox">
-            <div class="location">Poznan, PL</div>
-            <div class="date">21 wrzesnia 2022</div>
+        <div class="showResults" v-if="showResults" >
+            <div class="list" @click="showWeather(location.lat, location.lon)" v-for="location in locations" :key="location.name">{{location.name}}, {{location.country}}, {{location.state}}</div>
+        </div>
+        <div class="locationBox" v-if="showWeatherInfo">
+            <div class="location">{{weather.data.name}}, {{weather.data.sys.country}}</div>
+            <div class="date">{{date.getDate()}}.{{date.getMonth()}}.{{date.getFullYear()}}</div>
             <div class="weatherInfo">
-            <div class="temp">9°c</div>
+            <div class="temp">{{Math.round(weather.data.main.temp)}}°c</div>
             <div class="weather">
                 <span class="material-symbols-outlined">
                     weather_snowy
                 </span>
                 <br>
-                rain
+                {{weather.data.weather[0].main}}
             </div>
             </div>
         </div>
@@ -44,10 +44,13 @@ export default {
         return {
             api_key: '0a3bb1ff2db0e040a9982a1d81f55253',
             api_geo_url: 'http://api.openweathermap.org/geo/1.0/direct?q=',
+            api_url: 'https://api.openweathermap.org/data/2.5/weather?',
             weather: {},
             locations: [],
             query: '',
             showResults: false,
+            showWeatherInfo: false,
+            date: '',
         }
     },
     methods: {
@@ -55,7 +58,7 @@ export default {
             if(this.query.length>0){
             axios.get(`${this.api_geo_url}${this.query}&limit=5&appid=${this.api_key}`)
                 .then((response) => {
-                    this.locations - response.data
+                    this.locations = response.data
                     console.log(response.data)
                     this.showResults = true
                 })
@@ -65,7 +68,34 @@ export default {
             }else{
                 this.showResults = false
             }
-        }, 1000)
+        }, 1000),
+
+        showWeather(lat, lon){
+            this.showResults = false
+            console.log(lat)
+            axios.get(`${this.api_url}lat=${lat}&lon=${lon}&units=metric&appid=${this.api_key}`)
+                .then((response) => {
+                    console.log(response)
+                    this.weather = response
+                    this.showWeatherInfo = true
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },   
+        curentUserLocation() { 
+            navigator.geolocation.getCurrentPosition( 
+                position => {  
+                this.showWeather(position.coords.latitude, position.coords.longitude)
+            })
+        },
+        dataBuilder() {
+            this.date = new Date() 
+        }
+    },
+    beforeMount(){
+        this.curentUserLocation(),
+        this.dataBuilder()
     }
 
 
@@ -92,6 +122,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
     }
 
     input{
@@ -113,8 +144,18 @@ export default {
         color: rgba(235, 235, 235, 0.64);
         background-color: #181818;
         position: absolute;
-        bottom: 0;
-        left: 50;
+        top: 20%;
+        left: 20%;
+        right: 20%;
+        z-index: 2;
+        border-radius: 15px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .list:hover{
+        cursor: pointer;
+        background-color: #292929;
     }
 
     .locationBox{
