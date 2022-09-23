@@ -1,6 +1,5 @@
 <script setup>
     import axios from 'axios';
-    import newsItem from '@/components/newsItem.vue'
 </script>
 
 <!-- v-show="active==index" -->
@@ -37,7 +36,7 @@
 export default {
     name: "news",
     components: {
-        newsItem
+       
     },
     data() {
         return {
@@ -123,6 +122,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 20px;
     }
 
     .content h3{
@@ -141,14 +141,19 @@ export default {
         border-radius: 10px;
         margin-top: 30px;
         text-align: justify;
-        font-size: 16px;
+        font-size: 15px;
         background-color: rgba(0, 0, 0, 0.6);
     }
 
     .content i{
         position: absolute;
-        right: 0;
+        max-width: 90%;
+        right: 5%;
         bottom: 18%;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     #back{
