@@ -4,11 +4,23 @@
 
 <template>
     <div class="toDoBox">
+        <div class="task" v-for="task in tasks" :key="task">
+            <span class="material-symbols-outlined">
+check_box_outline_blank
+</span>
+            <p>{{task}}</p>
+            <span class="material-symbols-outlined">
+delete
+</span>
+
+        </div>
         <div class="menu" :class="{ closeMenu: !menu}">
             <div class="add" v-if="!menu" @click="add">+</div>
             <div class="menuShow" v-else>
                 <input 
                 type="text"
+                v-model="input"
+                @keypress="addToDo"
                 placeholder="type something and press enter">
                 <button @click="add">
                     or cancel 
@@ -28,12 +40,21 @@ export default {
     data() {
         return {
             menu: false,
-
+            input: '',
+            tasks:[],
+            i: 0,
         }
     },
     methods: {  
         add(){
             this.menu = !this.menu
+        },
+        addToDo(e){
+            if(e.key == "Enter"){
+                this.add()
+                this.tasks[this.i] = this.input
+                this.i++
+            }
         }
     },
     beforeMount(){
@@ -48,15 +69,31 @@ export default {
     .toDoBox{
         margin-top: 5vw;
         width: 90%;
-        height: 65vh;
+        min-height: 65vh;
         border-radius: 20px;
-        background-color: var(--color-text);
+        background-color: rgb(191, 157, 4);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50%;
         transition: .4s;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        padding: 5%;
+        padding-bottom: 90px;
+    }
+
+    .task{
+        width: 80%;
+        height: 60px;
+        background-color: var(--color-background);
+        color: var(--color-text);
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        border-radius: 20px;
     }
 
     .menu {
