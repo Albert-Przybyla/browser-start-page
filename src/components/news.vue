@@ -7,7 +7,22 @@
 
 <template>
     <div class="newsBox">
-        <newsItem class="item" v-for="(item, index) in items" :key="item" :item = "item" :active = "active" :index = "index"/>
+        <div class="item" v-for="(item, index) in items" :key="item" v-show="active==index">
+                <img :src="item.urlToImage" alt="">
+                <div class="content">
+                        <h3>
+                            {{item.title}}
+                        </h3>
+                        <p>
+                            {{item.content}}
+                        </p>
+                        <i> 
+                            ~ {{item.author}}
+                        </i>
+                        
+                        <a :href="item.url">full article available here</a>
+                </div>
+        </div>
         <span class="material-symbols-outlined" id="back" @click="changeNews(-1)">
             arrow_back_ios
         </span>
@@ -60,9 +75,9 @@ export default {
     .newsBox{
         margin-top: 5vw;
         width: 90%;
-        height: 80vh;
+        height: 70vh;
         border-radius: 20px;
-        background-color: var(--color-text);
+        background-color: var(--color-background);
         /* background-image: url(../assets/newspaper.jpeg);
         background-size: cover;
         background-repeat: no-repeat; */
@@ -76,6 +91,64 @@ export default {
         width: 100%;
         height: 100%;
         display: inline-block;
+    }
+
+    .item img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 70%;
+        z-index: 1;
+    }
+
+    .content{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 85%;
+        width: 100%;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+
+    .content a{
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content h3{
+        margin: 8px;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 18px;
+        text-align: center;
+        font-weight: 600;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .content p{
+        margin: 8px;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 30px;
+        text-align: justify;
+        font-size: 16px;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .content i{
+        position: absolute;
+        right: 0;
+        bottom: 18%;
     }
 
     #back{
@@ -104,13 +177,14 @@ export default {
     }
 
     span{
-        height: 10%;
+        height: 15%;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 30px;
         background-color: rgba(0, 0, 0, 0.5);
-        z-index: 2;
+        z-index: 3;
+        color: white;
     }
 
     
