@@ -45,7 +45,7 @@ export default {
         justify-content: center;
         align-items: center;
         width: 90%;
-        height: 20vh;
+        /* height: 15vh; */
     }
 
     input{

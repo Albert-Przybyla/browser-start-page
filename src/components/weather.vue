@@ -19,7 +19,7 @@
         </div>
         <div class="locationBox" v-if="showWeatherInfo">
             <div class="location">{{weather.data.name}}, {{weather.data.sys.country}}</div>
-            <div class="date">{{date.getDate()}}.{{date.getMonth()}}.{{date.getFullYear()}}</div>
+            <div class="date">{{date.getDate()}}.{{date.getMonth()+1}}.{{date.getFullYear()}}</div>
             <div class="weatherInfo">
             <div class="temp">{{Math.round(weather.data.main.temp)}}°c</div>
             <div class="weather">

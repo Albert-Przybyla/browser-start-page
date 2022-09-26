@@ -1,17 +1,23 @@
 <script setup>
+import { objectToString } from '@vue/shared';
+
 
 </script>
 
 <template>
     <div class="toDoBox">
-        <div class="task" v-for="task in tasks" :key="task">
-            <span class="material-symbols-outlined">
-check_box_outline_blank
-</span>
-            <p>{{task}}</p>
-            <span class="material-symbols-outlined">
-delete
-</span>
+        <div class="task" v-for="(task, i) in tasks" :key="task.id" :class="{delete: !task.active, deleted: task.deleted }">
+            <span class="material-symbols-outlined" @click="complitedTask(i)" v-if="!task.complited">
+                check_box_outline_blank
+            </span>
+            <span class="material-symbols-outlined" @click="complitedTask(i)" v-else>
+                check_box
+            </span>
+
+            <p :class="{complited: task.complited}">{{task.name}}</p>
+            <span class="material-symbols-outlined" @click="deleteTask(i)">
+                delete
+            </span>
 
         </div>
         <div class="menu" :class="{ closeMenu: !menu}">
@@ -52,10 +58,22 @@ export default {
         addToDo(e){
             if(e.key == "Enter"){
                 this.add()
-                this.tasks[this.i] = this.input
-                this.i++
+                this.tasks.push ({
+                    name: this.input,
+                    active: true,
+                    deleted: false,
+                    complited: false
+                })
             }
-        }
+        },
+        deleteTask(i){
+            this.tasks[i].active = false
+            setTimeout(()=>{
+                return this.tasks[i].deleted = true}, 510)
+        },
+        complitedTask(i){
+            this.tasks[i].complited = !this.tasks[i].complited
+        }   
     },
     beforeMount(){
 
@@ -81,10 +99,12 @@ export default {
         align-items: center;
         padding: 5%;
         padding-bottom: 90px;
+        overflow-x: hidden;
+        transition: .5s;
     }
 
     .task{
-        width: 80%;
+        width: 80vw;
         height: 60px;
         background-color: var(--color-background);
         color: var(--color-text);
@@ -94,6 +114,24 @@ export default {
         align-items: center;
         margin-top: 10px;
         border-radius: 20px;
+        transition: .5s;
+    }
+
+    .delete{
+        transform: translateX(100vw);
+    }
+
+    .deleted{
+        display: none;
+    }
+
+    .complited{
+        text-decoration: line-through;
+        transition: .5s easy;
+    }
+
+    .task span{
+        cursor: pointer;
     }
 
     .menu {
@@ -144,6 +182,16 @@ export default {
 
     input:focus{
         outline: none;
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+    .v-enter-from,
+    .v-leave-to {
+        opacity: 0;
     }
     
 </style>

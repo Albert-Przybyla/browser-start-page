@@ -46,7 +46,9 @@ import VueWriter from 'vue-writer';
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 40px;
+        font-size: 35px;
+        text-align: center;
+        height: 20vh;
         font-weight: bold;
         color: var(--color-heading);
     }
