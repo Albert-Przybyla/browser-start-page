@@ -27,7 +27,8 @@ import { objectToString } from '@vue/shared';
                 type="text"
                 v-model="input"
                 @keypress="addToDo"
-                placeholder="type something and press enter">
+                placeholder="type something and press enter"
+                maxlength="20">
                 <button @click="add">
                     or cancel 
                 </button>
@@ -132,6 +133,11 @@ export default {
 
     .task span{
         cursor: pointer;
+        font-size: 30px;
+    }
+
+    .task p{
+        max-width: 70%;
     }
 
     .menu {

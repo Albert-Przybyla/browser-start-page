@@ -7,7 +7,9 @@
 <template>
   <modal v-if="modalOpen" @close = "modalOpen = false" @update:option="optionUpdate"/>
   <Home :bg = "bg" @openModal = "modalOpen = true"/>
-  <widgets/>
+  <div>
+  <widgets :widgetsMove = "widgetsMove"/>
+  </div>
 </template>
 
 <script>
@@ -17,6 +19,7 @@
       return {
         modalOpen: true,
         bg: 1,
+        widgetsMove: true,
       }
     },
     components: {
@@ -27,8 +30,21 @@
     methods: {
       optionUpdate: function(value){
         this.bg = value
-      }
-    }
+      },
+      handleScroll(event) {
+        if(scrollY>=1){
+            this.widgetsMove = false
+        }else{
+            this.widgetsMove = true
+        }
+      },
+    },
+    created() {
+      window.addEventListener("scroll", this.handleScroll);
+    },
+    destroyed() {
+      window.removeEventListener("scroll", this.handleScroll);
+    },
   }
 
 </script>

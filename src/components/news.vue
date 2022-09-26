@@ -6,7 +6,7 @@
 
 <template>
     <div class="newsBox">
-        <div class="item" v-for="(item, index) in items" :key="item" v-show="active==index">
+        <div class="item" v-for="(item, index) in items" :key="item" :class="{left: active>index, right: active<index, active: active === index}">
                 <img :src="item.urlToImage" alt="">
                 <div class="content">
                         <h3>
@@ -22,11 +22,17 @@
                         <a :href="item.url">full article available here</a>
                 </div>
         </div>
-        <span class="material-symbols-outlined" id="back" @click="changeNews(-1)">
+        <span class="material-symbols-outlined back double" @click="changeNews(-1)" v-if="firstSlide">
+            keyboard_double_arrow_right
+        </span>
+        <span class="material-symbols-outlined back" @click="changeNews(-1)" v-else>
             arrow_back_ios
         </span>
         <span class="curentSlide"><sup>{{active+1}}</sup>/<sub>20</sub></span>
-        <span class="material-symbols-outlined" id="forward" @click="changeNews(1)">
+        <span class="material-symbols-outlined forward double" @click="changeNews(1)" v-if="lastSlide">
+            keyboard_double_arrow_left
+        </span>
+        <span class="material-symbols-outlined forward" @click="changeNews(1)" v-else>
             arrow_forward_ios
         </span>
     </div>
@@ -43,6 +49,8 @@ export default {
             api: 'https://newsapi.org/v2/top-headlines?country=us&apiKey=06dbaa83a995486db090deed0040045d',
             items: [],
             active: 0,
+            firstSlide: true,
+            lastSlide: false,
         }
     },
     methods: {
@@ -59,7 +67,22 @@ export default {
         changeNews(add){
             if(add == -1 && this.active >= 1 || add == 1 && this.active <= 18){
             this.active += add
-
+            this.lastSlide = false
+            this.firstSlide = false
+                if(this.active==19){
+                    this.lastSlide = true
+                }
+                if(this.active==0){
+                    this.firstSlide = true
+                }
+            }else if(add == -1){
+                this.active = 19
+                this.lastSlide = true
+                this.firstSlide = false
+            }else{
+                this.active = 0
+                this.firstSlide = true
+                this.lastSlide = false
             }
         }
     },
@@ -86,10 +109,28 @@ export default {
         overflow: hidden;
     }
 
+    .left{
+        transform: translateX(-100vw);
+        transition: .5s;
+    }
+
+    .right{
+        transform: translateX(100vw);
+        transition: .5s;
+    }
+
+    .active{
+        transform: translateX(0);
+        transition: .5s;
+    }
+
     .item{
         width: 100%;
         height: 100%;
-        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
     }
 
     .item img{
@@ -156,7 +197,7 @@ export default {
         overflow: hidden;
     }
 
-    #back{
+    .back{
         position: absolute;
         left: 0;
         bottom: 0;
@@ -172,13 +213,17 @@ export default {
         bottom: 0;
     }
 
-    #forward{
+    .forward{
         position: absolute;
         right: 0;
         bottom: 0;
         width: 40%;
         cursor: pointer;
         border-bottom-right-radius: 20px;
+    }
+
+    .double{
+        font-size: 45px;
     }
 
     span{
