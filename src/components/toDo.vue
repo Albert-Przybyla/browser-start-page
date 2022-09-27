@@ -129,7 +129,7 @@ export default {
     }
 
     .task{
-        width: 80vw;
+        width: 80%;
         height: 60px;
         background-color: var(--color-background);
         color: var(--color-text);
@@ -306,5 +306,15 @@ export default {
         'opsz' 48
     }
 
+    @media (min-width: 700px){
+        
+    }
+
+    @media (min-width: 1024px){
+        .toDoBox{
+            grid-area: ld;
+            width: 38vw;
+        }
+    }
     
 </style>

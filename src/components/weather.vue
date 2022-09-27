@@ -189,4 +189,16 @@ export default {
         font-size: 40px;
         text-align: center;
     }
+
+    @media (min-width: 700px){
+
+    }
+
+    @media (min-width: 1024px){
+        .weatherBox{
+            grid-area: lt;
+            width: 28vw;
+            height: 70vh;
+        }
+    }
 </style>

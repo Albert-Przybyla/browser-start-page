@@ -68,4 +68,17 @@
     .v-enter-from, .v-leave-to {
         opacity: 0;
     }
+
+    @media (min-width: 1024px){
+        .wrapper{
+            display: grid;
+            grid-template-columns: repeat(9, 10vw);
+            grid-template-rows: 70vh;
+            grid-template-areas: 
+                "lt lt lt rt rt rt rt rt rt"
+                "ld ld ld ld . . . . .";
+            padding-top: 0;
+            padding: 5vw;
+        }
+    }
 </style>

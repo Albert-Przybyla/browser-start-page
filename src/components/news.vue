@@ -249,5 +249,38 @@ export default {
         opacity: 0;
     }
 
+    @media (min-width: 700px){
+        .content h3{
+            font-size: 24px;
+            padding: 15px;
+            margin: 15px;
+        }
+
+        .content p{
+            font-size: 18px;
+            padding: 15px;
+            margin: 15px;
+            line-height: 35px;
+        }
+
+        .content i{
+            bottom: 20%;
+            font-size: 20px;
+        }
+
+        .content a{
+            font-size: 25px;
+        }
+    }
+
+    @media (min-width: 1024px){
+        .newsBox{
+            grid-area: rt;
+            width: 60vw;
+            height: 70vh;
+            margin: 0;
+        }
+    }
+
     
 </style>
