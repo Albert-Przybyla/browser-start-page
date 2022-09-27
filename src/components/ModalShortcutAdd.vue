@@ -6,7 +6,7 @@
     <div class="backdrop">
         <div class="modal">
                 <h2>add shortcut:</h2>
-                <div class="inner">
+                <!-- <div class="inner">
                 <p>
                     cohose one of this: 
                 </p>
@@ -17,7 +17,7 @@
                     <option>google</option>
                     <optino>mozilla MDN</optino>
                 </select>
-                </div>
+                </div> -->
                 <div class="inner">
                 <p>
                     or add custome:
@@ -28,7 +28,7 @@
                             title
                         </span>
                     </label>
-                    <input type="text" name="" id="" placeholder="np. Google">
+                    <input type="text" name="" id="" placeholder="np. Google" v-model="name">
                 </div>
                 <div class="input">
                     <label>
@@ -36,7 +36,12 @@
                             link
                         </span>
                     </label>
-                    <input type="text" name="" id="" placeholder="https://">
+                    <input type="text" name="" id="" placeholder="https://" v-model="link">
+                </div>
+                <div class="input">
+                    <div class="submit" @click="addShortcut">
+                        add
+                    </div>
                 </div>
 
                 </div>
@@ -53,13 +58,18 @@
     name: "App",
     data(){
         return{
-
+            link: '',
+            name: '',
         }
     },
     methods: {
         closeModal(){
             this.$emit('close');
         },
+        addShortcut(){
+            
+            this.$emit('add', this.name, this.link);
+        }
     }
 
     }
@@ -175,6 +185,21 @@
         /* box-shadow: 5px 5px 20px -8px var(--color-text); */
     }
 
+    .submit{
+        height: 40px;
+        width: 290px;
+        background-color:  var(--color-background);
+        margin-top: 30px;
+        border-radius: 15px;
+        font-size: 15px;
+        color: var(--color-text);
+        border: var(--color-text) solid 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
     span{
         background: var(--color-background);
         margin-top: 30px;
@@ -242,7 +267,11 @@
         height: 50px;
         width: 50px;
     }
-
+    .submit{
+        width: 500px;
+        height: 50px;
+        font-size: 25px;
+    }
 
 
 
@@ -256,6 +285,11 @@
     span{
         height: 50px;
         width: 50px;
+    }
+    .submit{
+        width: 600px;
+        height: 50px;
+        font-size: 25px;
     }
     }
 </style>

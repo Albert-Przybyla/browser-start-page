@@ -4,13 +4,19 @@ import Modal from '@/components/ModalShortcutAdd.vue'
 
 <template>
 <div class="wrapper">
-  <modal v-if="modalOpen" @close = "modalOpen = false"/>
+  <modal v-if="modalOpen" @close = "modalOpen = false" @add = "addShortcut"/>
     <div class="shortcut" @click="modalOpen = true">
         <span class="material-symbols-outlined">
           add_circle
         </span>
           add
     </div>
+    <a :href="item.link" class="shortcut" v-for="item in shortcuts" :key="item">
+      <span>
+        {{item.logo}}
+      </span>
+      {{item.name}}
+    </a>
 </div>
 </template>
 
@@ -20,21 +26,28 @@ export default {
   data(){
     return {
       modalOpen: false,
+      shortcuts: [],
+      a: '',
     }
   },
+  methods:{
+    addShortcut(name, link){
+      this.modalOpen = false
+      this.shortcuts.push ({
+        name: name,
+        link: link,
+        logo: name.charAt(0)
+      })
+      console.log(this.shortcuts[0])
+    }
+  }
 
 };
 </script>
 
 <style scoped>
-
-
-    .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 700,
-    'GRAD' 0,
-    'opsz' 48,
+    .wrapper{
+      display: flex;
     }
 
     .shortcut{
@@ -48,10 +61,18 @@ export default {
       border-radius: 15px;
       border: var(--color-heading) solid 3px;
       cursor: pointer;
+      margin: 10px;
+      overflow-x: scroll;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .shortcut .material-symbols-outlined{
+      font-size: 50px;
     }
 
     .shortcut span{
-      font-size: 50px;
+      font-size: 35px;
     }
 
     @media (min-width: 760px){

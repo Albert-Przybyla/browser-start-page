@@ -6,7 +6,7 @@
 
 <template>
     <div class="newsBox">
-        <div class="item" v-for="(item, index) in items" :key="item" :class="{left: active>index, right: active<index, active: active === index}">
+        <div class="item" v-for="(item, index) in items" :key="item" :class="{left: active>index, right: active+1 < index, active: active === index, active2: active+1 === index }">
                 <img :src="item.urlToImage" alt="">
                 <div class="content">
                         <h3>
@@ -88,11 +88,20 @@ export default {
                 this.firstSlide = true
                 this.lastSlide = false
             }
+        },
+        size(){
+
         }
     },
     beforeMount(){
         this.loadNews()
     },
+    created(){
+        window.addEventListener("resize", this.size)
+    },
+    destroyed(){
+        window.removeEventListener("resize", this.size)
+    }
 
     }
 </script>
@@ -125,6 +134,11 @@ export default {
 
     .active{
         transform: translateX(0);
+        transition: .5s;
+    }
+
+    .active2{
+        transform: translateX(100%);
         transition: .5s;
     }
 
@@ -280,6 +294,32 @@ export default {
             height: 70vh;
             margin: 0;
         }
+
+        .item{
+            width: 50%;
+        }
+
+        .content h3{
+            font-size: 20px;
+            padding: 13px;
+            margin: 11px;
+        }
+
+        .content p{
+            font-size: 17px;
+            padding: 13px;
+            margin: 11px;
+            line-height: 30px;
+        }
+
+        .content i{
+            font-size: 16px;
+        }
+
+        .content a{
+            font-size: 22px;
+        }
+
     }
 
     

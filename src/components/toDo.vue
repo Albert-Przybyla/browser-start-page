@@ -40,7 +40,7 @@ import { objectToString } from '@vue/shared';
         <div class="title">
             Todo list
         </div>
-        <div class="task" v-for="(task, i) in tasks" :key="task.id" :class="{delete: !task.active, deleted: task.deleted,  bg: task.color === 1, red: task.color === 2, blue: task.color === 3}">
+        <div class="task" v-for="(task, i) in tasks" :key="task" :class="{delete: !task.active, deleted: task.deleted,  bg: task.color === 1, red: task.color === 2, blue: task.color === 3}">
             <span class="material-symbols-outlined" @click="complitedTask(i)" v-if="!task.complited">
                 check_box_outline_blank
             </span>
@@ -114,7 +114,7 @@ export default {
         width: 90%;
         min-height: 65vh;
         border-radius: 20px;
-        background-color: rgb(191, 157, 4);
+        background-color: rgb(151, 126, 18);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50%;
@@ -314,6 +314,7 @@ export default {
         .toDoBox{
             grid-area: ld;
             width: 38vw;
+            margin-top: 2vw;
         }
     }
     
