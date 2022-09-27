@@ -14,7 +14,9 @@ import { objectToString } from '@vue/shared';
                 check_box
             </span>
 
-            <p :class="{complited: task.complited}">{{task.name}}</p>
+            <p><span class="line" :class="{complited: task.complited}"></span>{{task.name}}</p>
+
+
             <span class="material-symbols-outlined" @click="deleteTask(i)">
                 delete
             </span>
@@ -28,7 +30,8 @@ import { objectToString } from '@vue/shared';
                 v-model="input"
                 @keypress="addToDo"
                 placeholder="type something and press enter"
-                maxlength="20">
+                maxlength="19"
+                >
                 <button @click="add">
                     or cancel 
                 </button>
@@ -116,6 +119,7 @@ export default {
         margin-top: 10px;
         border-radius: 20px;
         transition: .5s;
+        font-size: 18px;
     }
 
     .delete{
@@ -126,9 +130,19 @@ export default {
         display: none;
     }
 
+    .line{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--color-text);
+        transition: .5s;
+    }
+
     .complited{
-        text-decoration: line-through;
-        transition: .5s easy;
+        width: 105%;
+        transition: .5s;
     }
 
     .task span{

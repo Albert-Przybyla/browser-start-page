@@ -22,19 +22,23 @@
                         <a :href="item.url">full article available here</a>
                 </div>
         </div>
+        <transition>
         <span class="material-symbols-outlined back double" @click="changeNews(-1)" v-if="firstSlide">
             keyboard_double_arrow_right
         </span>
         <span class="material-symbols-outlined back" @click="changeNews(-1)" v-else>
             arrow_back_ios
         </span>
+        </transition>
         <span class="curentSlide"><sup>{{active+1}}</sup>/<sub>20</sub></span>
+        <transition>
         <span class="material-symbols-outlined forward double" @click="changeNews(1)" v-if="lastSlide">
             keyboard_double_arrow_left
         </span>
         <span class="material-symbols-outlined forward" @click="changeNews(1)" v-else>
             arrow_forward_ios
         </span>
+        </transition>
     </div>
 </template>
 
@@ -235,6 +239,14 @@ export default {
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 3;
         color: white;
+    }
+
+    .v-enter-active, .v-leave-active {
+        transition: opacity 0.4s ease;
+    }
+
+    .v-enter-from, .v-leave-to {
+        opacity: 0;
     }
 
     
