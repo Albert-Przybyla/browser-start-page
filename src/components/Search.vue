@@ -31,7 +31,7 @@ export default {
     //         console.log(this.query)
     //     }, 1000)
     handleInput (){
-        console.log(this.query)
+        // console.log(this.query)
     }
   }
 

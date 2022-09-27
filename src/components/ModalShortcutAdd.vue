@@ -19,9 +19,7 @@
                 </select>
                 </div> -->
                 <div class="inner">
-                <p>
-                    or add custome:
-                </p>
+
                 <div class="input">
                     <label>
                         <span class="material-symbols-outlined">
@@ -96,6 +94,7 @@
         justify-content: flex-start;
         align-items: center;
         background-color: var(--color-background);
+        border-radius: 20px;
     }
 
 
@@ -132,7 +131,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 40px;
     }
 
     select{
@@ -164,6 +163,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 20px;
     }
 
     input{
@@ -271,8 +271,13 @@
         width: 500px;
         height: 50px;
         font-size: 25px;
+        transition: .5s;
     }
 
+    .submit:hover{
+        transform: scale(1.1);
+        transition: .5s;
+    }
 
 
     }

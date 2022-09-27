@@ -46,11 +46,17 @@ import VueWriter from 'vue-writer';
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 35px;
+        font-size: 33px;
         text-align: center;
         height: 20vh;
         font-weight: bold;
-        color: var(--color-heading);
+        color: white;
+    }
+
+    @media (min-width: 1024px){
+        .wrapper{
+            font-size: 60px;
+        }
     }
 
 </style>

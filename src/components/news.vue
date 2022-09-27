@@ -61,7 +61,7 @@ export default {
         loadNews(){
             axios.get(`${this.api}`)
                 .then((response) => {
-                    console.log(response.data.articles)
+                    // console.log(response.data.articles)
                     this.items = response.data.articles
                 })
                 .catch((error) => {

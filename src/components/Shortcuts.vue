@@ -4,7 +4,9 @@ import Modal from '@/components/ModalShortcutAdd.vue'
 
 <template>
 <div class="wrapper">
+  <transition>
   <modal v-if="modalOpen" @close = "modalOpen = false" @add = "addShortcut"/>
+  </transition>
     <div class="shortcut" @click="modalOpen = true">
         <span class="material-symbols-outlined">
           add_circle

@@ -9,7 +9,7 @@
         <claim/>
         <search/>
         <Shortcuts/>
-        <div class="setting">
+        <div class="setting" :class="{open: open}">
           <span class="material-symbols-outlined" @click="openModal">
             settings
           </span>
@@ -26,12 +26,7 @@ export default {
     Shortcuts
     },
     props: ['bg'],
-
-  data(){
-    return {
-
-    }
-  },
+    
     computed: {
       style () {
         return 'background-image: url(src/assets/' +  this.bg + '.jpg);'
@@ -67,9 +62,27 @@ export default {
       align-items: flex-end;
     }
 
+    .open{
+      transform: rotate(360deg);
+      transition: 1s;
+    }
+
     .setting span{
       margin-right: 10%;
       font-size: 40px;
       cursor: pointer;
+      color: white;
+    }
+
+    @media (min-width: 1024px){
+      .setting span{
+        font-size: 55px;
+        transition: .5s;
+      }
+
+      .setting span:hover{
+        transform: scale(1.2);
+        transition: .5s;
+      }
     }
 </style>

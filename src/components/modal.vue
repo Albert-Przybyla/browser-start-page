@@ -38,7 +38,7 @@
         choseFoto(number){
             this.$emit('update:option', number);
             this.active = number
-            console.log(this.active)
+
         }
     },
     beforeMount(){
@@ -70,6 +70,7 @@
         align-items: center;
         background-color: var(--color-background);
         overflow: scroll;
+        border-radius: 20px;
     }
 
     .fotobox{

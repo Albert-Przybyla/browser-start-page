@@ -5,7 +5,9 @@
 </script>
 
 <template>
+  <transition>
   <modal v-if="modalOpen" @close = "modalOpen = false" @update:option="optionUpdate"/>
+  </transition>
   <Home :bg = "bg" @openModal = "modalOpen = true"/>
   <div>
   <widgets :widgetsMove = "widgetsMove"/>
