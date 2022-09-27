@@ -6,7 +6,41 @@ import { objectToString } from '@vue/shared';
 
 <template>
     <div class="toDoBox">
-        <div class="task" v-for="(task, i) in tasks" :key="task.id" :class="{delete: !task.active, deleted: task.deleted }">
+        <span class="material-symbols-outlined circleAdd" :class="{close: menu}" @click="add">
+            add_circle
+            </span>
+        <transition>
+            <div class="menuShow" v-if="menu">
+                <div class="title">
+                    add ToDo
+                </div>
+                <input 
+                type="text"
+                v-model="input"
+                @keypress="addToDo($event, colorChosen)"
+                placeholder="type something and press enter"
+                maxlength="19"
+                >
+                <div class="colors">
+                <span class="material-symbols-outlined" :class="{chosen: colorChosen == 1}" @click="addToDo($event, 1)">
+                    text_fields
+                </span>
+                <span class="material-symbols-outlined" :class="{chosen: colorChosen == 2}" @click="addToDo($event, 2)">
+                    text_fields
+                </span>
+                <span class="material-symbols-outlined" :class="{chosen: colorChosen == 3}" @click="addToDo($event, 3)">
+                    text_fields
+                </span>
+                </div>
+                <button @click="add">
+                    cancel 
+                </button>
+            </div>
+        </transition>
+        <div class="title">
+            Todo list
+        </div>
+        <div class="task" v-for="(task, i) in tasks" :key="task.id" :class="{delete: !task.active, deleted: task.deleted,  bg: task.color === 1, red: task.color === 2, blue: task.color === 3}">
             <span class="material-symbols-outlined" @click="complitedTask(i)" v-if="!task.complited">
                 check_box_outline_blank
             </span>
@@ -21,22 +55,6 @@ import { objectToString } from '@vue/shared';
                 delete
             </span>
 
-        </div>
-        <div class="menu" :class="{ closeMenu: !menu}">
-            <div class="add" v-if="!menu" @click="add">+</div>
-            <div class="menuShow" v-else>
-                <input 
-                type="text"
-                v-model="input"
-                @keypress="addToDo"
-                placeholder="type something and press enter"
-                maxlength="19"
-                >
-                <button @click="add">
-                    or cancel 
-                </button>
-            </div>
-            
         </div>
     </div>
 </template>
@@ -53,21 +71,24 @@ export default {
             input: '',
             tasks:[],
             i: 0,
+            colorChosen: 1,
         }
     },
     methods: {  
         add(){
             this.menu = !this.menu
         },
-        addToDo(e){
-            if(e.key == "Enter"){
+        addToDo(e, color){
+            if(e.key == "Enter" || e.buttons == 0){
                 this.add()
                 this.tasks.push ({
                     name: this.input,
                     active: true,
                     deleted: false,
-                    complited: false
+                    complited: false,
+                    color: color
                 })
+                this.colorChosen = color
             }
         },
         deleteTask(i){
@@ -102,7 +123,7 @@ export default {
         flex-direction: column;
         align-items: center;
         padding: 5%;
-        padding-bottom: 90px;
+        padding-top: 80px;
         overflow-x: hidden;
         transition: .5s;
     }
@@ -120,6 +141,19 @@ export default {
         border-radius: 20px;
         transition: .5s;
         font-size: 18px;
+        z-index: 1;
+    }
+
+    .bg{
+        background-color: var(--color-background);
+    }
+
+    .red{
+        background-color: rgb(148, 66, 66);
+    }
+
+    .blue{
+        background-color: rgb(88, 88, 193);
     }
 
     .delete{
@@ -154,55 +188,105 @@ export default {
         max-width: 70%;
     }
 
-    .menu {
+    .circleAdd{
         position: absolute;
-        right: 0px;
-        bottom: 0px;
-        background-color: var(--color-background);
-        transition: .5s easy;
-    }
-
-    .closeMenu{
-        border-radius: 100%;
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-
-    .add{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 45px;
-        width: 30px;
-        height: 30px;
-        padding: 30px;
+        left: 10px;
+        top: 10px;
+        font-size: 60px;
+        color: var(--color-background);
         cursor: pointer;
+        z-index: 3;
+        transition: .5s;
+    }
+
+    .close{
+        transform: rotate(45deg);
+        color: var(--color-text);
+        transition: .5s;
     }
 
     .menuShow{
-        width: 90vw;
-        height: 15vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
+        background-color: var(--color-background);
+        z-index: 2;
+    }
+
+    .menuShow .title{
+        color: var(--color-text);
     }
 
     .menuShow input{ 
+        margin-top: 80px;
         background-color: var(--color-background);
         border: none;
         border-bottom: 2px var(--color-text) solid;
         color: var(--color-text);
         width: 90%;
-        height: 35%;
+        height: 60px;
         font-size: 18px;
     }
 
     input:focus{
         outline: none;
     }
+
+    .colors{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .colors span{
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        background-color: rgb(148, 66, 66);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .colors span:first-child{
+        background-color: var(--color-background);
+    }
+
+    .colors span:last-child{
+        background-color: rgb(88, 88, 193);
+    }
+
+    .chosen{
+        border: 2px solid var(--color-text)
+    }
+
+    .menuShow button{
+        width: 70%;
+        height: 10%;
+        background-color: var(--color-background);
+        border: 2px solid var(--color-text);
+        border-radius: 15px;
+        color: var(--color-text);
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .title{
+        position: absolute;
+        right: 40px;
+        top: 15px;
+        font-size: 30px;
+        color: var(--color-background);
+    }
+
+
 
     .v-enter-active,
     .v-leave-active {
@@ -213,5 +297,14 @@ export default {
     .v-leave-to {
         opacity: 0;
     }
+
+    .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+    }
+
     
 </style>
