@@ -9,7 +9,7 @@
         <claim/>
         <search/>
         <Shortcuts/>
-        <div class="setting" :class="{open: open}">
+        <div class="setting">
           <span class="material-symbols-outlined" @click="openModal">
             settings
           </span>
@@ -26,7 +26,7 @@ export default {
     Shortcuts
     },
     props: ['bg'],
-    
+
     computed: {
       style () {
         return 'background-image: url(src/assets/' +  this.bg + '.jpg);'
